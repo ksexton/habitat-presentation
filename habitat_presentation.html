@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<meta name="author" content="(Kyle Sexton)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="file:///Users/kes/.emacs.d/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="file:///Users/kes/.emacs.d/reveal.js/css/theme/white.css" id="theme"/>
+
+<link rel="stylesheet" href="./local.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'file:///Users/kes/.emacs.d/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+
+<section>
+<section id="slide-orgheadline1" data-background="./images/hab-diamond.png" data-background-size="300px">
+<h2 id="orgheadline1">Introduction to Habitat</h2>
+<p>
+Kyle Sexton<br  />
+Senior DevOps Engineer<br  />
+New Context
+</p>
+
+<p>
+<a href="http://mocker.org">mocker.org</a><br  />
+<a href="https://github.com/ksexton">github.com/ksexton</a><br  />
+<a href="https://twitter.com/mocker">twitter.com/mocker</a><br  />
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline2">
+<h2 id="orgheadline2">What is Habitat?</h2>
+<p>
+If you look on the web, you'll find descriptions like:
+</p>
+
+
+<p>
+<i><b>Application automation</b> that enables <b>modern application teams</b> to build, deploy, and manage <b>any application</b> in <b>any environment</b></i>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3"></h2>
+<p>
+When I started looking at Habitat I would read things like that and have no idea what they were talking about.
+<br  />
+<br  />
+I started digging deeper.
+</p>
+
+
+<div class="figure">
+<p><img src="images/confession.png" alt="confession.png" width="300px" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline4">
+<h2 id="orgheadline4"></h2>
+<p>
+The first thing I did was build out a small Habitat cluster so I could learn by experimenting.  It didn't help.<br  />
+<br  />
+<br  />
+Habitat didn't make sense to me until I realized the following:<br  />
+<br  />
+<br  />
+<b>The infrastructure is not the point.</b>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline5">
+<h2 id="orgheadline5">Habitat is <b>not</b></h2>
+<ul>
+<li>replacing Docker</li>
+<li>replacing Mesosphere</li>
+<li>replacing Chef</li>
+<li>replacing Puppet</li>
+
+</ul>
+
+<p>
+Habitat is not built to replace your existing environment.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline6">
+<h2 id="orgheadline6">What is Habitat?</h2>
+<p>
+Let's try this again.<br  />
+<br  />
+<br  />
+<br  />
+<b>Habitat is a framework for creating modern, portable applications.</b>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline7">
+<h2 id="orgheadline7"></h2>
+<p>
+Rails gave ruby developers an easy framework for web development, Habitat gives developers a <span class="underline">framework</span> to build modern, run anywhere applications.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline8">
+<h2 id="orgheadline8"></h2>
+<p>
+So if you've bought in to my mental model of how to view Habitat, what benefits does this framework provide?
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline9">
+<h2 id="orgheadline9">Supervisor</h2>
+<p>
+All Habitat packages come with a supervisor.  The supervisor starts and monitors the application defined in the package as well as acting on configuration changes.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline10">
+<h2 id="orgheadline10">Service Discovery</h2>
+<p>
+Running services can be connected into groups that can self-manage and reorganize as changes occur.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline11">
+<h2 id="orgheadline11">Clustering Strategies</h2>
+<p>
+Built in cluster strategies such as leader-follower allow you to start your services to match their topology
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline12">
+<h2 id="orgheadline12">Secrets Management</h2>
+<p>
+Communications to and between services are secured with high-grade encryption using libsodium, a Rust implementation of NaCl.
+</p>
+
+<p>
+(Curve25519, Salsa20, and Poly1305 ciphers - <a href="https://nacl.cr.yp.to">https://nacl.cr.yp.to</a>)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline13">
+<h2 id="orgheadline13">REST API</h2>
+<p>
+Robust HTTP API provides essential information about the status of the application.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">/census</td>
+<td class="org-left">Information about the census</td>
+</tr>
+
+<tr>
+<td class="org-left">/config</td>
+<td class="org-left">Current running configuration</td>
+</tr>
+
+<tr>
+<td class="org-left">/election</td>
+<td class="org-left">Leader election status</td>
+</tr>
+
+<tr>
+<td class="org-left">/gossip</td>
+<td class="org-left">Gossip ring information</td>
+</tr>
+
+<tr>
+<td class="org-left">/health</td>
+<td class="org-left">Runs the package's health_check</td>
+</tr>
+
+<tr>
+<td class="org-left">/status</td>
+<td class="org-left">Returns the current status from the supervisor's perspective</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline14">
+<h2 id="orgheadline14">Health checks</h2>
+<p>
+Health checks that are bundled with the application and created by the application developers!
+<br  />
+<br  />
+No more having the ops team guess the best way to check an application's health!
+</p>
+
+<pre class="example">
+$ curl -s -L http://localhost:9631/health | head -1
+OK - kes/mytutorialapp/0.2.0/20160826033838: up for PT85.912594176S
+$
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline15">
+<h2 id="orgheadline15">"Clean-room" builds</h2>
+<p>
+With habitat you get <b>Hab Studio</b>, a chrooted environment that isolates builds from your operating system libraries and dependencies
+</p>
+
+
+<div class="figure">
+<p><img src="images/hab-studio.png" alt="hab-studio.png" />
+</p>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline16">
+<h2 id="orgheadline16">Package format</h2>
+<p>
+Habitat has a standard package format that is isolated, immutable, and auditable.
+</p>
+
+<dl>
+<dt>Isolated</dt><dd>No outside dependencies</dd>
+<dt>Immutable</dt><dd>Particular versions of the package never change</dd>
+<dt>Auditable</dt><dd>Track details of any changes to the package</dd>
+
+</dl>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline17">
+<h2 id="orgheadline17">Portability</h2>
+<p>
+Artifacts are fully capable of being run on their own, or can be exported to multiple formats, like Docker, Mesos.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline18">
+<h2 id="orgheadline18">Take what you want</h2>
+<p>
+Start simple &#x2013; just launch an app, but as you need more features you have them available.
+</p>
+
+<p>
+Don't want a feature?  Just don't pass the switches to enable them.
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline19">
+<h2 id="orgheadline19">Try it!</h2>
+<p>
+The website has a great interactive overview of Habitat that you can try from the comfort of your browser.
+</p>
+
+<p>
+<a href="https://www.habitat.sh/try/">https://www.habitat.sh/try/</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline20">
+<h2 id="orgheadline20">Thanks</h2>
+<p>
+Resources:
+</p>
+
+<dl>
+<dt>Website</dt><dd><a href="http://www.habitat.sh">http://www.habitat.sh</a></dd>
+<dt>Packages</dt><dd><a href="https://app.habitat.sh">https://app.habitat.sh</a></dd>
+<dt>Forums</dt><dd><a href="https://forums.habitat.sh">https://forums.habitat.sh</a></dd>
+<dt>Slack</dt><dd><a href="http://slack.habitat.sh">http://slack.habitat.sh</a></dd>
+
+</dl>
+</section>
+</section>
+</div>
+</div>
+<script src="file:///Users/kes/.emacs.d/reveal.js/lib/js/head.min.js"></script>
+<script src="file:///Users/kes/.emacs.d/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: false,
+rollingLinks: true,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'file:///Users/kes/.emacs.d/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'file:///Users/kes/.emacs.d/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///Users/kes/.emacs.d/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///Users/kes/.emacs.d/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'file:///Users/kes/.emacs.d/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+,autoSlide: 15000});
+</script>
+</body>
+</html>

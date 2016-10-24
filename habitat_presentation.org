@@ -1,0 +1,159 @@
+#+OPTIONS: toc:nil reveal_center:t reveal_progress:t reveal_history:nil reveal_control:t author:nil num:nil
+#+OPTIONS: reveal_mathjax:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil reveal_title_slide:nil reveal_slide_number:nil
+#+REVEAL_THEME: white
+#+REVEAL_HLEVEL: 1
+#+REVEAL_EXTRA_CSS: ./local.css
+#+STARTUP: inlineimages
+#+REVEAL_INIT_SCRIPT: autoSlide: 15000
+
+
+* Introduction to Habitat
+:PROPERTIES:
+:reveal_background: ./images/hab-diamond.png
+:reveal_background_size: 300px
+:END:
+
+Kyle Sexton\\
+Senior DevOps Engineer\\
+New Context
+
+[[http://mocker.org][mocker.org]]\\
+[[https://github.com/ksexton][github.com/ksexton]]\\
+[[https://twitter.com/mocker][twitter.com/mocker]]\\
+
+* What is Habitat?
+
+If you look on the web, you'll find descriptions like:
+
+
+/*Application automation* that enables *modern application teams* to build, deploy, and manage *any application* in *any environment*/
+
+* 
+
+When I started looking at Habitat I would read things like that and have no idea what they were talking about.
+\\
+\\
+I started digging deeper.
+
+#+ATTR_HTML: :width 300px
+[[file:images/confession.png]]
+
+* 
+The first thing I did was build out a small Habitat cluster so I could learn by experimenting.  It didn't help.\\
+\\
+\\
+Habitat didn't make sense to me until I realized the following:\\
+\\
+\\
+*The infrastructure is not the point.*
+
+* Habitat is *not*
+
+- replacing Docker
+- replacing Mesosphere
+- replacing Chef
+- replacing Puppet
+
+Habitat is not built to replace your existing environment.
+
+* What is Habitat?
+
+Let's try this again.\\
+\\
+\\
+\\
+*Habitat is a framework for creating modern, portable applications.*
+
+* 
+
+Rails gave ruby developers an easy framework for web development, Habitat gives developers a _framework_ to build modern, run anywhere applications.
+
+* 
+
+So if you've bought in to my mental model of how to view Habitat, what benefits does this framework provide?
+
+* Supervisor
+
+All Habitat packages come with a supervisor.  The supervisor starts and monitors the application defined in the package as well as acting on configuration changes.
+
+* Service Discovery
+
+Running services can be connected into groups that can self-manage and reorganize as changes occur.
+
+* Clustering Strategies
+
+Built in cluster strategies such as leader-follower allow you to start your services to match their topology
+
+* Secrets Management
+
+Communications to and between services are secured with high-grade encryption using libsodium, a Rust implementation of NaCl.
+
+(Curve25519, Salsa20, and Poly1305 ciphers - https://nacl.cr.yp.to)
+
+* REST API
+Robust HTTP API provides essential information about the status of the application.
+
+| /census   | Information about the census                                 |
+| /config   | Current running configuration                                |
+| /election | Leader election status                                       |
+| /gossip   | Gossip ring information                                      |
+| /health   | Runs the package's health_check                              |
+| /status   | Returns the current status from the supervisor's perspective |
+
+
+* Health checks
+
+Health checks that are bundled with the application and created by the application developers!
+\\
+\\
+No more having the ops team guess the best way to check an application's health!
+
+#+BEGIN_EXAMPLE
+$ curl -s -L http://localhost:9631/health | head -1
+OK - kes/mytutorialapp/0.2.0/20160826033838: up for PT85.912594176S
+$
+#+END_EXAMPLE
+
+* "Clean-room" builds
+:PROPERTIES:
+:ATTACH_DIR: /Users/kes/git/org/habitat_presentation/images/
+:END:
+
+With habitat you get *Hab Studio*, a chrooted environment that isolates builds from your operating system libraries and dependencies
+
+[[file:images/hab-studio.png]]
+
+
+* Package format
+
+Habitat has a standard package format that is isolated, immutable, and auditable.
+
+- Isolated :: No outside dependencies
+- Immutable :: Particular versions of the package never change
+- Auditable :: Track details of any changes to the package
+
+* Portability
+
+Artifacts are fully capable of being run on their own, or can be exported to multiple formats, like Docker, Mesos.
+
+* Take what you want
+
+Start simple -- just launch an app, but as you need more features you have them available.
+
+Don't want a feature?  Just don't pass the switches to enable them.
+
+
+* Try it!
+
+The website has a great interactive overview of Habitat that you can try from the comfort of your browser.
+
+https://www.habitat.sh/try/
+
+* Thanks
+Resources:
+
+- Website :: http://www.habitat.sh
+- Packages :: https://app.habitat.sh
+- Forums :: https://forums.habitat.sh
+- Slack :: http://slack.habitat.sh
+
